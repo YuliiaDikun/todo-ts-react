@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import TodoList from "./Components/TodoList";
 import AddTodo from "./Components/AddTodo";
+import InputSearch from "./Components/InputSearch";
 import { IItems } from "./types/todo";
 
 const App: React.FC = () => {
   const [todos, setTodos] = useState<IItems[]>([]);
   const [todoToUpdate, setTodoToUpdate] = useState<Partial<IItems>>({});
+  const [searchValue, setSearchValue] = useState('');
 
   const todoAddHandler = (todo: IItems) => {
     setTodos((prevTodos) => {
@@ -46,12 +48,9 @@ const App: React.FC = () => {
   };
 
   const updateTodos = (todo:IItems) => { 
-    const index = todos.findIndex((item) => item.id === todo.id);
-    console.log(index);
-    console.log(todo);
+    const index = todos.findIndex((item) => item.id === todo.id);    
     const newTodos = [...todos];
-    newTodos[index] = todo;
-    console.log(newTodos)
+    newTodos[index] = todo;    
     setTodos(newTodos);
     setTodoToUpdate({});
   }
@@ -82,12 +81,13 @@ const App: React.FC = () => {
       )
     );
   }
-
+  const todosToRender = todos.filter(todo => todo.title.includes(searchValue));
   return (
     <div>
       <AddTodo onAddTodo={todoAddHandler} />
+      <InputSearch onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchValue(e.target.value)} />
       <TodoList
-        todos={todos}
+        todos={todosToRender}
         onDeleteTodo={todoDeleteHandler}
         onCheckedTodos={todoCheckedHandler}
         onOrderChange={changeOrder}
