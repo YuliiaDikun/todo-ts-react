@@ -1,8 +1,10 @@
 import React, { useState} from "react";
 import { IItems } from "../types/todo";
-
+interface IProps { 
+  onAddTodo: (todo:IItems) => void
+}
 type OnlyTitle = Pick<IItems, "title">
-const AddTodo: React.FC = () => {
+const AddTodo: React.FC<IProps> = ({onAddTodo }) => {
   
   const [todo, setTodo] = useState<Partial<OnlyTitle>>({})
 
@@ -14,7 +16,7 @@ const AddTodo: React.FC = () => {
   const submitHandler = (e:React.FormEvent) => { 
     e.preventDefault();
     if (!todo.title) return 
-    console.log(todo.title);
+    onAddTodo(todo as IItems);
   }
   return (
     <form onSubmit={ submitHandler}>
