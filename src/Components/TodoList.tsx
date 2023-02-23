@@ -16,9 +16,9 @@ const TodoList: React.FC<IProps> = ({ todos, onDeleteTodo, onCheckedTodos, onOrd
             <button onClick={() => { onCheckedTodos(todo.id)}}>Checked</button>
             {todo.title}
             <div>
-              <button onClick={() => { onOrderChange(index, "UP")}}>Up</button>
-              <button onClick={() => { onOrderChange(index, "DOWN")}}>Down</button>
-              <button onClick={() => { onDeleteTodo(todo.id)}}>Remove</button>
+              <button disabled={index === 0? true: false } onClick={() => { onOrderChange(index, "UP")}}>Up</button>
+              <button disabled={index === todos.length - 1? true: false } onClick={() => { onOrderChange(index, "DOWN")}}>Down</button>
+              <button  onClick={() => { onDeleteTodo(todo.id)}}>Remove</button>
             </div>
           </li>
         ))}

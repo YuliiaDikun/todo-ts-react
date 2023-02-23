@@ -36,16 +36,13 @@ const App: React.FC = () => {
     })
   }
   const reorderArray = (event: {oldIndex:number, newIndex:number}, originalArray: IItems[]): IItems[] => {
-    const movedItem = originalArray.find((_, index) => index === event.oldIndex)!;
-    console.log('movedItem ', movedItem )
-    const remainingItems = originalArray.filter((_, index) => index !== event.oldIndex);
-  console.log('remainingItems ', remainingItems)
+    const movedItem = originalArray.find((_, index) => index === event.oldIndex)!;    
+    const remainingItems = originalArray.filter((_, index) => index !== event.oldIndex);  
     const reorderedItems = [
         ...remainingItems.slice(0, event.newIndex),
         movedItem,
         ...remainingItems.slice(event.newIndex)
-    ];
-  console.log('reorderedItems ', reorderedItems)
+    ];  
     return reorderedItems;
   }
   
