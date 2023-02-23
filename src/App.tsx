@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TodoList from "./Components/TodoList";
 import AddTodo from "./Components/AddTodo";
 import InputSearch from "./Components/InputSearch";
 import { IItems } from "./types/todo";
 
 const App: React.FC = () => {
-  const [todos, setTodos] = useState<IItems[]>([]);
+  const [todos, setTodos] = useState<IItems[]>(() => JSON.parse(localStorage.getItem('todos')!) ?? []);
   const [todoToUpdate, setTodoToUpdate] = useState<Partial<IItems>>({});
   const [searchValue, setSearchValue] = useState('');
+
+ useEffect(()=>{
+    localStorage.setItem('todos', JSON.stringify(todos));
+  },[todos, searchValue])
 
   const todoAddHandler = (todo: IItems) => {
     setTodos((prevTodos) => {
