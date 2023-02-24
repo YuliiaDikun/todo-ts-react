@@ -17,7 +17,7 @@ const Todos: React.FC = () => {
       return [
         ...prevTodos,
         {
-          id: Math.random().toString(),
+          id: new Date().toString(),
           isChecked: false,
           title: todo.title,
         },
