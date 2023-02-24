@@ -1,8 +1,8 @@
-import { ColumpType } from "./enums";
+import { ColumnType } from "./enums";
 export interface IItems {
   id: string;
   title: string;
-  column: ColumpType;
+  column: ColumnType;
   color: string;
   isChecked: boolean;
 }

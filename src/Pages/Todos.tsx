@@ -3,7 +3,7 @@ import TodoList from "../Components/TodoList";
 import AddTodo from "../Components/AddTodo";
 import InputSearch from "../Components/InputSearch";
 import { IItems } from "../types/todo";
-import { ColumpType } from "../types/enums";
+import { ColumnType } from "../types/enums";
 const Todos: React.FC = () => {
   const [todos, setTodos] = useState<IItems[]>(
     () => JSON.parse(localStorage.getItem("todos")!) ?? []
@@ -24,7 +24,7 @@ const Todos: React.FC = () => {
           isChecked: false,
           title: todo.title,
           color: "white",
-          column: ColumpType.TO_DO,
+          column: ColumnType.TO_DO,
         },
       ];
     });

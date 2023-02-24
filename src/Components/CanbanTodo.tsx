@@ -2,6 +2,7 @@ import React from "react";
 import { Box, IconButton, Textarea } from "@chakra-ui/react";
 import { IItems } from "../types/todo";
 import { DeleteIcon } from "@chakra-ui/icons";
+
 interface IProps {
   index: number;
   todo: IItems;
