@@ -1,16 +1,19 @@
-import React, { useState, useEffect} from 'react'
-import TodoList from '../Components/TodoList';
+import React, { useState, useEffect } from "react";
+import TodoList from "../Components/TodoList";
 import AddTodo from "../Components/AddTodo";
 import InputSearch from "../Components/InputSearch";
 import { IItems } from "../types/todo";
+import { ColumpType } from "../types/enums";
 const Todos: React.FC = () => {
-     const [todos, setTodos] = useState<IItems[]>(() => JSON.parse(localStorage.getItem('todos')!) ?? []);
+  const [todos, setTodos] = useState<IItems[]>(
+    () => JSON.parse(localStorage.getItem("todos")!) ?? []
+  );
   const [todoToUpdate, setTodoToUpdate] = useState<Partial<IItems>>({});
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState("");
 
- useEffect(()=>{
-    localStorage.setItem('todos', JSON.stringify(todos));
-  },[todos, searchValue])
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos, searchValue]);
 
   const todoAddHandler = (todo: IItems) => {
     setTodos((prevTodos) => {
@@ -20,6 +23,8 @@ const Todos: React.FC = () => {
           id: new Date().toString(),
           isChecked: false,
           title: todo.title,
+          color: "white",
+          column: ColumpType.TO_DO,
         },
       ];
     });
@@ -46,17 +51,17 @@ const Todos: React.FC = () => {
   };
 
   const todoUpdateHandler = (id: string) => {
-    const todo = todos.find((todo) => todo.id === id) as IItems;    
+    const todo = todos.find((todo) => todo.id === id) as IItems;
     setTodoToUpdate(todo);
   };
 
-  const updateTodos = (todo:IItems) => { 
-    const index = todos.findIndex((item) => item.id === todo.id);    
+  const updateTodos = (todo: IItems) => {
+    const index = todos.findIndex((item) => item.id === todo.id);
     const newTodos = [...todos];
-    newTodos[index] = todo;    
+    newTodos[index] = todo;
     setTodos(newTodos);
     setTodoToUpdate({});
-  }
+  };
 
   const reorderArray = (
     event: { oldIndex: number; newIndex: number },
@@ -84,11 +89,17 @@ const Todos: React.FC = () => {
       )
     );
   }
-  const todosToRender = todos.filter(todo => todo.title.includes(searchValue));
+  const todosToRender = todos.filter((todo) =>
+    todo.title.includes(searchValue)
+  );
   return (
     <main>
       <AddTodo onAddTodo={todoAddHandler} />
-      <InputSearch onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchValue(e.target.value)} />
+      <InputSearch
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          setSearchValue(e.target.value)
+        }
+      />
       <TodoList
         todos={todosToRender}
         onDeleteTodo={todoDeleteHandler}
@@ -96,10 +107,10 @@ const Todos: React.FC = () => {
         onOrderChange={changeOrder}
         onUpdateTodo={todoUpdateHandler}
         todoToUpdate={todoToUpdate}
-        updateTodos={ updateTodos}
+        updateTodos={updateTodos}
       />
     </main>
-  )
-}
+  );
+};
 
-export default Todos
+export default Todos;
